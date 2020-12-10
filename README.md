@@ -12,8 +12,10 @@ Proyecto final para la calse de desarrollo moviles
 5. para iniciar el servidor y visualizar los resultados ejecuta:
    - php artisan serve
    
->**Nota:** Cada que se a;ada o retiren paquetes de composer o si al ejecutar marca errores dedntro de la carpeta ***vendor*** hay que ejecutar "composer update"  
->**Nota:** Si se actualizan los paquetes de node hay que ejecutar el comando "npm i"
+>**Nota:** Cada que se añada o retiren paquetes de composer o si al ejecutar hay errores dedntro de la carpeta ***vendor*** hay que ejecutar "composer update"  
+>**Nota:** Si se actualizan los paquetes de node hay que ejecutar el comando "npm i"  
+>**Nota:** Se ha instalado VUEJS para intentar remplazar AJAX, pero esta a discución si se implementa o no
+
 
 #### Hbilirat NODEJS
 1. Asegurate de tener instalado Node y que funcione el comando 
@@ -22,3 +24,5 @@ Proyecto final para la calse de desarrollo moviles
    - npm i
 3. Para iniciar el servidor y poder usar sus funciones y rutas ejecutar el comando
    - npm run serve
+
+>**nota:** Una ves iniciado el servidor de node basta con guardar los cambios para que se reinicie por si mismo y probar los cambios
