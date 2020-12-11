@@ -16,6 +16,10 @@ Proyecto final para la calse de desarrollo moviles
 >**Nota:** Si se actualizan los paquetes de node hay que ejecutar el comando "npm i"  
 >**Nota:** Se ha instalado VUEJS para intentar remplazar AJAX, pero esta a discución si se implementa o no
 
+**Recursos para laravel 8**
+- https://youtube.com/playlist?list=PLZ2ovOgdI-kWWS9aq8mfUDkJRfYib-SvF
+- https://laravel.com/docs/8.x
+
 
 #### Hbilirat NODEJS
 1. Asegurate de tener instalado Node y que funcione el comando 
