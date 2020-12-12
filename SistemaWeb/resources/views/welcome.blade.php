@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('scc')
+@section('css')
 @stop
 
 @section('title')

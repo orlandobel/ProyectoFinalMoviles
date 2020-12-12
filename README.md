@@ -30,3 +30,7 @@ Proyecto final para la calse de desarrollo moviles
    - npm run serve
 
 >**nota:** Una ves iniciado el servidor de node basta con guardar los cambios para que se reinicie por si mismo y probar los cambios
+
+
+### Recursos extras
+**Peticiones HTTP de laravel para API** https://www.itsolutionstuff.com/post/laravel-8-guzzle-http-client-request-exampleexample.html
