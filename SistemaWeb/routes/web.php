@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/agrupamientos', function(){//agregando rutas para agrupamiento
+    return view('agrupamientos');
+});
 
 Route::get('/login', function () {
     return view('auth.login');

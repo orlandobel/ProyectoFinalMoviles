@@ -196,8 +196,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+            <a href="/agrupamientos" class="nav-link">
+            <i class="nav-icon fa fa-bars" aria-hidden="true"></i>
               <p>
                 Agrupamientos
               </p>
