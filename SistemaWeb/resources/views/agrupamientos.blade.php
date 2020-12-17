@@ -17,7 +17,7 @@ Agrupamientos
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Agrupamientos</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -123,24 +123,122 @@ Agrupamientos
       </div>
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Title</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-          </div>
+          <h3 class="card-title">Asignar a Grupo</h3>
         </div>
         <div class="card-body">
-          Start creating your amazing application!
-        </div>
+          <div class="card-tools">
+          <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Nombres</th>
+                  <th>Función</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ada Lovelace</td>
+                  <td>Alumno</td>
+                  <td>
+                    <button type="button" class="btn btn-info">
+                      <i class="far fa-dot-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Grace Hopper</td>
+                  <td>PAAE</td>
+                  <td>
+                    <button type="button" class="btn btn-info">
+                      <i class="far fa-dot-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Margaret Hamilton</td>
+                  <td>Alumno</td>
+                  <td>
+                    <button type="button" class="btn btn-info">
+                      <i class="far fa-dot-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Joan Clarke</td>
+                  <td>Docente</td>
+                  <td>
+                    <button type="button" class="btn btn-info">
+                      <i class="far fa-dot-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <select class="form-control">
+                <option>Seleccione un grupo</option>
+                <option>Becas</option>
+                <option>Credenciales</option>
+                <option>BEIFI</option>
+                <option>Delfin</option>
+              </select>
+            </div>
+            <div class="col-md-7"></div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-block btn-success btn-lg">Asignar</button>
+            </div>
+            <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Función</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ada Lovelace</td>
+                  <td>Alumno</td>
+                  <td>
+                    <button type="button" class="btn btn-danger">
+                      <i class="far fa-dot-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Grace Hopper</td>
+                  <td>Docente</td>
+                  <td>
+                    <button type="button" class="btn btn-danger">
+                      <i class="far fa-dot-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+              <button type="button" class="btn btn-block btn-secondary">Secondary</button>
         </div>
         <!-- /.card-footer-->
-      </div>
+        </div>
       <!-- /.card -->
 
     </section>
