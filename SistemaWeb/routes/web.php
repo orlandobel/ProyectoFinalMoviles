@@ -13,17 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('welcome');
-});
+})->name('home');
+
 Route::get('/agrupamientos', function(){//agregando rutas para agrupamiento
     return view('agrupamientos');
-});
+})->name('agrupamientos');
 
 Route::get('/notificaciones', function () {
     return view('notifications');
-});
+})->name('notificaciones');
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('auth.login');
-});
+})->name('login');

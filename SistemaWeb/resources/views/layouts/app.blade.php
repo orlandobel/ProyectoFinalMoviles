@@ -188,7 +188,7 @@
                with font-awesome or any other icon font library -->
           
           <li class="nav-item">
-            <a href="/notificaciones" class="nav-link">
+            <a href="{{ route('notificaciones') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Notificaciones
@@ -196,7 +196,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/agrupamientos" class="nav-link">
+            <a href="{{ route('agrupamientos') }}" class="nav-link">
             <i class="nav-icon fa fa-bars" aria-hidden="true"></i>
               <p>
                 Agrupamientos
@@ -204,7 +204,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{{ route('login') }}" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
                 Salir
