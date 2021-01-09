@@ -20,6 +20,10 @@ Route::get('/agrupamientos', function(){//agregando rutas para agrupamiento
     return view('agrupamientos');
 });
 
+Route::get('/notificaciones', function () {
+    return view('notifications');
+});
+
 Route::get('/login', function () {
     return view('auth.login');
 });
