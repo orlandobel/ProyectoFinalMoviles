@@ -8,6 +8,40 @@ Agrupamientos
 @stop
 
 @section('modals')
+<!-- Modal nuevo agrupamiento -->
+<div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="nuevoModalLabel">Nuevo agrupamiento</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+
+          </div>
+          <div class="modal-body">
+              <form>
+                  <div class="form-group">
+                      <input class="form-control form-control-navbar" type="text" placeholder="Nombre"
+                          aria-label="Search">
+                  </div>
+
+                  <div class="form-group">
+                      <textarea class="form-control form-control-navbar" placeholder="Descripcion"
+                          aria-label="Descripcion" id="message-text"></textarea>
+                  </div>
+              </form>
+          </div>
+
+          <!-- footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal nuevo agrupamiento -->
 @stop
 
 @section('content')
@@ -38,7 +72,8 @@ Agrupamientos
             <div class="row">
                 <div class="col-md-11"><h3 class="card-title">Grupos</h3></div>
                 <div class="col-md-1">
-                    <button type="button" class="btn btn-block btn-success btn-xs">
+                    <button type="button" class="btn btn-block btn-success btn-xs"
+                    data-toggle="modal", data-target="#nuevoModal">
                         <i class="fas fa-plus-circle"></i>
                     </button>
                 </div>
