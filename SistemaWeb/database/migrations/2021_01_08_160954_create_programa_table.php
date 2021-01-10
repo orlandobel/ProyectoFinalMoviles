@@ -13,7 +13,7 @@ class CreateProgramaTable extends Migration
      */
     public function up()
     {
-        Schema::create('programa', function (Blueprint $table) {
+        Schema::create('programas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
@@ -28,6 +28,6 @@ class CreateProgramaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('programa');
+        Schema::dropIfExists('programas');
     }
 }

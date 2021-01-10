@@ -13,14 +13,14 @@ class CreateAgrupamientoTable extends Migration
      */
     public function up()
     {
-        Schema::create('agrupamiento', function (Blueprint $table) {
+        Schema::create('agrupamientos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('usuario_id');
             $table->unsignedBigInteger('grupo_id');
             $table->timestamps();
 
-            $table->foreign('usuario_id')->references('id')->on('usuario');
-            $table->foreign('grupo_id')->references('id')->on('grupo');
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('grupo_id')->references('id')->on('grupos');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateAgrupamientoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agrupamiento');
+        Schema::dropIfExists('agrupamientos');
     }
 }

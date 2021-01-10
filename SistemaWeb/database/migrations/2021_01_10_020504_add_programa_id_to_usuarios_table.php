@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrupoTable extends Migration
+class AddProgramaIdToUsuariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateGrupoTable extends Migration
      */
     public function up()
     {
-        Schema::create('grupos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
+        //
+        Schema::table('usuarios', function (Blueprint $table) {
+            $table->unsignedBigInteger('programa_id');
+            $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('programa_id')->references('id')->on('programas');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateGrupoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grupos');
+        //
     }
 }

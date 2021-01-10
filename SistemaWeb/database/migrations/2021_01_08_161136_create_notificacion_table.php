@@ -13,7 +13,7 @@ class CreateNotificacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('notificacion', function (Blueprint $table) {
+        Schema::create('notificaciones', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
             $table->string('descripcion', 255);
@@ -21,7 +21,7 @@ class CreateNotificacionTable extends Migration
             $table->unsignedBigInteger('grupo_id');
             $table->timestamps();
 
-            $table->foreign('grupo_id')->references('id')->on('grupo');
+            $table->foreign('grupo_id')->references('id')->on('grupos');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateNotificacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notificacion');
+        Schema::dropIfExists('notificacions');
     }
 }

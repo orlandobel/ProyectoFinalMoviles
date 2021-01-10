@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Agrupamiento;
+use App\Models\Notificacion;
+use App\Models\Usuario;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(ProgramaSeeder::class);
+        $this->call(GrupoSeeder::class);
+
+        Usuario::factory(30)->create();
+        Agrupamiento::factory(30)->create();
+        Notificacion::factory(10)->create();
     }
 }
