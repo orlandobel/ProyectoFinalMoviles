@@ -16,6 +16,18 @@ Proyecto final para la calse de desarrollo moviles
 >**Nota:** Si se actualizan los paquetes de node hay que ejecutar el comando "npm i"  
 >**Nota:** Se ha instalado VUEJS para intentar remplazar AJAX, pero esta a discución si se implementa o no
 
+## Migrar la base de datos
+Laravel nos permite modelar las bases de datos desde los archivos "migrations" dentro de la carpeta "database".
+Para ello primero es necesario crear una base de datos en el SGBD (en este caso mysql) y configurar su acceso en el *.env*
+de la siguiente manera:
+1. Asegurate que la variable ***DB_HOST*** tiene el valor *localhost*
+2. La variable ***DB_DATABASE*** debe de tener el nombre de la base de datos previamente creada
+3. Las variables ***DB_USERNAME*** y ***DB_PASSWORD** deben tener las credenciales de acceso al SGBD en caso de existir. En caso de que no existan credenciales configuradas, las variables pueden quedar vacias
+
+Una vez creada la base de datos y configurado el *.env* hay que ejecurat el siguiente comando en una terminal 
+- *php artisan migrate:fresh --seed*
+Esto cargara a la base de datos las tablas de los archivos de migración y generará datos de prueba previamente configurados
+
 **Recursos para laravel 8**
 - https://youtube.com/playlist?list=PLZ2ovOgdI-kWWS9aq8mfUDkJRfYib-SvF
 - https://laravel.com/docs/8.x
