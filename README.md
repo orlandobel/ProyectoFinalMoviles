@@ -54,6 +54,7 @@ La conexion de la base de datos con la api de NODEJS puede tener algunos problem
       - CREATE USER 'usuario'@'localhost' IDENTIFIED WITH mysql_native_password BY 'contraseña de usuario';
       - GRANT ALL PRIVILEGES ON database.* TO 'usuario'@'localhost' WITH GRANT OPTION;
       - FLUSH PRIVILEGES;
+3. Los archivos de conexión a la base de datos usan un archivo *.env* para extraer las credenciales. Hay un archivo llamado *.env.example* que contiene los parametros que se utilizan, solo hay que copiarlo como *.env* y llenar los campos segun la configuración del SGBD
 
 **nota:** si lanza da error en los privilegios del usuario cambial 'database.*' por '*.*' para darle permisos en todo el SGBD
 
