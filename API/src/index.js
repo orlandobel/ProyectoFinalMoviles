@@ -2,6 +2,7 @@
 const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
+const dotenv = require('dotenv');
 
 /* Iniciando la app */
 const app = express();
@@ -17,7 +18,8 @@ app.set('port', process.env.PORT || 3000);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({ origin: true }));
-
+dotenv.config(); // permite utilizar el archivo .env en caso de querer usar otro puerto
+ 
 /* Rutas del servidor */
 // app.use('/path', require('./routes/fileName.routes'));
 app.use('/pruebas', require('./routes/ejemplo.routes'));

@@ -43,6 +43,19 @@ Esto cargara a la base de datos las tablas de los archivos de migración y gener
 
 >**nota:** Una ves iniciado el servidor de node basta con guardar los cambios para que se reinicie por si mismo y probar los cambios
 
+## Conexion de mysql con NODEJS
+La conexion de la base de datos con la api de NODEJS puede tener algunos problemas en la versión de mysql es la 8 o superior pues el plugin de encriptación por defecto cambia en esta versión. En caso de tener problemas prueba lo siguiente
+1. Primero asegurate de tener instalado el paquete de mysql con el comando *npm i*
+2. Si el problema persiste puedes intentar modificando el plugin de encriptado del usuario *root* o creando un nuevo usuario y dandole los privilegios desde mysql
+   - Modificando el usuario root
+      - ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'contraseña de usuario';
+      - FLUSH PRIVILEGES;
+   - Creando un nuevo usuario
+      - CREATE USER 'usuario'@'localhost' IDENTIFIED WITH mysql_native_password BY 'contraseña de usuario';
+      - GRANT ALL PRIVILEGES ON database.* TO 'usuario'@'localhost' WITH GRANT OPTION;
+      - FLUSH PRIVILEGES;
+
+**nota:** si lanza da error en los privilegios del usuario cambial 'database.*' por '*.*' para darle permisos en todo el SGBD
 
 ### Recursos extras
 **Peticiones HTTP de laravel para API** https://www.itsolutionstuff.com/post/laravel-8-guzzle-http-client-request-exampleexample.html

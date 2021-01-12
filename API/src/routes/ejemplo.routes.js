@@ -1,5 +1,6 @@
 /* Dependencias */
 const express = require("express");
+const pruebas = require("../controllers/test.controller")
 
 // Ruteador
 const router = express.Router();
@@ -20,5 +21,8 @@ router.post('/', (req, res) => {
         "Prueba": "Prueba de rutas 2"
     });
 });
+
+
+router.get('/grupos', pruebas.grupos);
 
 module.exports = router;
