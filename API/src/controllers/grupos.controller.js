@@ -27,7 +27,16 @@ Grupos.getGrupos = async (req, res) => {
 }
 
 Grupos.createGrupo = async (req, res) => {
-    const data = req.body;
+    const { nombre, descripcion } = req.body;
+    const time = new Date();
+
+    const data = {
+        nombre, 
+        descripcion,
+        created_at: time,
+        updated_at: time
+    };
+
     let mensaje;
     let estatus;
 
@@ -64,7 +73,8 @@ Grupos.updateGrupo = async (req, res) => {
 
     const updateData = {
         nombre,
-        descripcion
+        descripcion,
+        updated_at: new Date()
     };
 
     console.log(grupo_id);
@@ -112,6 +122,62 @@ Grupos.deleteGrupo = async (req, res) => {
             mensaje = "Ha ocurrido un error al eliminar el grupo";
             estatus = false;
         }
+    }
+
+    res.json({
+        mensaje,
+        estatus
+    });
+}
+
+Grupos.joinGrupo = async(req, res) => {
+    const { usuario_id, grupo_id } = req.body;
+    const time = new Date();
+
+    const data = {
+        usuario_id,
+        grupo_id,
+        created_at: time,
+        updated_at: time,
+    };
+
+    let mensaje;
+    let estatus;
+
+    try {
+        await con.query("INSERT INTO agrupamientos SET ?", [data]);
+
+        mensaje = "El usuario se a añadido al grupo exitosamente";
+        estatus = true;
+    } catch (error) {
+        console.error(error);
+
+        mensaje = "Ha ocurrido un error al agregar el usuario al grupo, intentelo de nuevo más tarde";
+        estatus = false;
+    }
+
+    res.json({
+        mensaje,
+        estatus
+    });
+}
+
+Grupos.leaveGrupo = async(req, res) => {
+    const { id } = req.body;
+
+    let mensaje;
+    let estatus;
+
+    try {
+        await con.query("DELETE FROM agrupamientos WHERE id = ?", [id]);
+
+        mensaje = "El usuario se a removido del grupo exitosamente";
+        estatus = true;
+    } catch (error) {
+        console.error(error);
+
+        mensaje = "Ha ocurrido un error al remover al usuario del grupo, intentelo de nuevo más tarde";
+        estatus = false;
     }
 
     res.json({

@@ -25,4 +25,6 @@ router.post('/', (req, res) => {
 
 router.get('/grupos', pruebas.grupos);
 
+router.get('/timestamps', pruebas.timestamps);
+
 module.exports = router;

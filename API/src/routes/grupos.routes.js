@@ -11,4 +11,8 @@ router.put('/update', controller.updateGrupo);
 
 router.delete('/delete', controller.deleteGrupo);
 
+router.post('/agrupacion', controller.joinGrupo);
+
+router.delete('/agrupacion', controller.leaveGrupo);
+
 module.exports = router;

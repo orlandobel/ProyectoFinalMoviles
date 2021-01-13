@@ -8,7 +8,6 @@ pruebas.grupos = async (req, res) => {
 
     try {
         grupos = await con.query("SELECT * FROM grupos");
-
         estatus = (grupos === null) ? false : true;
         mensaje = (grupos === null) ? "No se han encontrado grupos" : "";
 
@@ -23,6 +22,12 @@ pruebas.grupos = async (req, res) => {
         mensaje,
         estatus
     });
+}
+
+pruebas.timestamps = () => {
+    const time = new Date();
+
+    console.log(time);
 }
 
 module.exports = pruebas;
