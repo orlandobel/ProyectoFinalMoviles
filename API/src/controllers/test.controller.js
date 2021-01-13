@@ -2,21 +2,27 @@ const con = require('../connection'); //conexion a la base de datos
 const pruebas = {};
 
 pruebas.grupos = async (req, res) => {
-    var estatus;
-    var grupos;
+    let estatus;
+    let grupos;
+    let mensaje;
 
-    const sql = "SELECT * FROM grupos";
-    const r = await con.query(sql);
-    
-    if(r === null ){
+    try {
+        grupos = await con.query("SELECT * FROM grupos");
+
+        estatus = (grupos === null) ? false : true;
+        mensaje = (grupos === null) ? "No se han encontrado grupos" : "";
+
+    } catch (error) {
         grupos = null;
+        mensaje = "Error al intentar obtener los grupos, intentelo de nuevo más tarde";
         estatus = false;
-    } else {
-        grupos = r;
-        estatus = true;
     }
 
-    res.json({grupos, estatus});
+    res.json({
+        grupos,
+        mensaje,
+        estatus
+    });
 }
 
 module.exports = pruebas;
