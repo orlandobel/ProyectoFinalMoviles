@@ -14,7 +14,6 @@ const database = {
 const pool = mysql.createPool(database);
 
 pool.getConnection((error, connection) => {
-    console.log(process.env.DB_PASSWORD);
     if(error) {
         if(error.code === 'PROTOCOL_CONNECTION_LOST') {
             console.error("DATABASE CONNECTION WAS CLOSE");
