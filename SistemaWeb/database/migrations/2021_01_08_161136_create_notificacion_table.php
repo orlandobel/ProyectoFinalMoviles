@@ -17,7 +17,6 @@ class CreateNotificacionTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->string('descripcion', 255);
-            $table->timestamp('fecha');
             $table->unsignedBigInteger('grupo_id');
             $table->timestamps();
 

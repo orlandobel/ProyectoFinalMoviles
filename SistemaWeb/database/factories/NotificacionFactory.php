@@ -26,7 +26,6 @@ class NotificacionFactory extends Factory
             //
             'titulo' => Str::random(10),
             'descripcion' => $this->faker->paragraph(),
-            'fecha' => now(),
             'grupo_id' => rand(1,3)
         ];
     }
