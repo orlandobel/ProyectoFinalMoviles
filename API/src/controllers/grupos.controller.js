@@ -43,13 +43,13 @@ Grupos.createGrupo = async (req, res) => {
     try {
         await con.query('INSERT INTO grupos SET ?', [data]);
 
-        mensaje = "Grupo creado exitosamente"
+        mensaje = "Grupo creado exitosamente";
         estatus = true;
     } catch (error) {
         console.error(error);
 
         if (error.code === 'ER_NO_DEFAULT_FOR_FIELD')
-            mensaje = "Hay campos vacios al intentar crear, por fabor revise los datos y vuelva a intentarlo";
+            mensaje = "Hay campos vacios al intentar crear, por favor revise los datos y vuelva a intentarlo";
         else
             mensaje = "Error al intentar obtener los grupos, intentelo de nuevo más tarde";
 
@@ -80,7 +80,7 @@ Grupos.updateGrupo = async (req, res) => {
     console.log(grupo_id);
 
     if (grupo_id === null || grupo_id === undefined) {
-        mensaje = "No se especifico un grupo a editar, falta el ID"
+        mensaje = "No se especifico un grupo a editar, falta el ID";
         estatus = false;
     } else {
         try {
@@ -114,7 +114,7 @@ Grupos.deleteGrupo = async (req, res) => {
         try {
             await con.query("DELETE FROM grupos WHERE id = ?", [grupo_id]);
 
-            mensaje = "Grupo eliminado exitozamente";
+            mensaje = "Grupo eliminado exitosamente";
             estatus = true;
         } catch(error) {
             console.error(error);
