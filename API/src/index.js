@@ -25,7 +25,7 @@ dotenv.config(); // permite utilizar el archivo .env en caso de querer usar otro
 app.use('/pruebas', require('./routes/ejemplo.routes'));
 app.use('/grupos', require('./routes/grupos.routes'));
 app.use('/notificaciones', require('./routes/notificaciones.routes'));
-
+app.use('/usuarios',require('./routes/usuarios.routes'));
 app.listen(app.get('port'), () => {
     console.log('Server listening on port ', app.get('port'));
 });

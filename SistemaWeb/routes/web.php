@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AgrupamientoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', function () {
     return view('welcome');
 })->name('home');
+//-agrupamientos--//
+Route::get('/agrupamientos', [AgrupamientoController::class, "index"])->name('agrupamientos');
 
-Route::get('/agrupamientos', function(){//agregando rutas para agrupamiento
-    return view('agrupamientos');
-})->name('agrupamientos');
-
+//Route::get('/grupos/lista', 'GrupoController');
+//-notficaciones ---//
 Route::get('/notificaciones', function () {
     return view('notifications');
 })->name('notificaciones');

@@ -45,6 +45,7 @@ Agrupamientos
 @stop
 
 @section('content')
+
 <div class="content">
     <!-- Content Header (Page header)  Contenedor del titulo de la pagina-->
     <section class="content-header">
@@ -90,9 +91,10 @@ Agrupamientos
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Becas</td>
-                            <td>Para Becas</td>
+                      @foreach($grupos as $grupo)
+                      <tr>
+                            <td>{{$grupo ->nombre}}</td>
+                            <td>{{$grupo ->descripcion}}</td>
                             <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info">
@@ -105,51 +107,8 @@ Agrupamientos
                             </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Credenciales</td>
-                            <td>Para nuevo Ingreso</td>
-                            <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info">
-                                    <i class="fas fa-pen-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            
-                            </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BEIFI</td>
-                            <td>Para Becas BEIFI</td>
-                            <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info">
-                                    <i class="fas fa-pen-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            
-                            </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Delfin</td>
-                            <td>Grupo Delfin</td>
-                            <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info">
-                                    <i class="fas fa-pen-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            
-                            </div>
-                            </td>
-                        </tr>
+                        
+                      @endforeach
                     </tbody>
                 </table>
             </div>
@@ -184,15 +143,25 @@ Agrupamientos
                 </tr>
               </thead>
               <tbody>
+                @foreach($usuarios as $u)
                 <tr>
-                  <td>Ada Lovelace</td>
-                  <td>Alumno</td>
+                  <td> {{$u -> nombre}} </td>
+                    <td> 
+                      @if($u -> tipo == 0)
+                        Alumno
+                      @elseif ($u -> tipo == 1)
+                        Docente
+                      @elseif ($u -> tipo == 2)
+                        PAAE
+                      @endif
+                    </td>
                   <td>
                     <button type="button" class="btn btn-info">
                       <i class="far fa-dot-circle"></i>
                     </button>
                   </td>
                 </tr>
+                @endforeach
                 <tr>
                   <td>Grace Hopper</td>
                   <td>PAAE</td>
@@ -203,6 +172,7 @@ Agrupamientos
                   </td>
                 </tr>
                 <tr>
+                
                   <td>Margaret Hamilton</td>
                   <td>Alumno</td>
                   <td>
