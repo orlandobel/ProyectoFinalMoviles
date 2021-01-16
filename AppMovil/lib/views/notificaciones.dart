@@ -1,4 +1,4 @@
-import 'package:AppMovil/views/detalles.dart';
+import 'package:NotiPush/views/detalles.dart';
 import 'package:flutter/material.dart';
 
 class Notificaciones extends StatelessWidget {

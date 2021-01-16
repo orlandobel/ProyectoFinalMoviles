@@ -1,4 +1,4 @@
-import 'package:AppMovil/views/login.dart';
+import 'package:NotiPush/views/login.dart';
 import 'package:flutter/material.dart';
 
 import 'views/notificaciones.dart';

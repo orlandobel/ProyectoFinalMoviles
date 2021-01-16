@@ -145,10 +145,21 @@ Grupos.joinGrupo = async(req, res) => {
     let estatus;
 
     try {
-        await con.query("INSERT INTO agrupamientos SET ?", [data]);
+        const relacion = 
+            await con.query("SELECT * FROM agrupamientos WHERE usuario_id = ? AND grupo_id = ?", [usuario_id, grupo_id]);
 
-        mensaje = "El usuario se a añadido al grupo exitosamente";
-        estatus = true;
+        console.log(relacion);
+        console.log(relacion.length);
+
+        if(relacion.length < 1) {
+            await con.query("INSERT INTO agrupamientos SET ?", [data]);
+    
+            mensaje = "El usuario se a añadido al grupo exitosamente";
+            estatus = true;
+        } else {
+            mensaje = "El usuario ya está registrado en este grupo";
+            estatus = false;
+        }
     } catch (error) {
         console.error(error);
 
