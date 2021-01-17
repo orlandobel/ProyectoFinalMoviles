@@ -1,3 +1,4 @@
+const axios = require('axios');
 const con = require('../connection');
 const Usuarios ={};
 
@@ -7,8 +8,8 @@ Usuarios.getUsuarios = async (req, res) =>{
     let mensaje;
     try {
         usuarios = await con.query("SELECT * from usuarios");
-        status  = (usuarios === null) ? false : true;
-        mensaje = (usuarios === null) ? "No se han encontrado grupos" :"";
+        status  = (usuarios.length === 0) ? false : true;
+        mensaje = (usuarios.length === 0) ? "No se han encontrado grupos" :"";
     } catch (error) {
         usuarios = null;
         mensaje = "Error al intentar obtener los usuarios, intentelo de nuevo mas tarde";
@@ -22,9 +23,57 @@ Usuarios.getUsuarios = async (req, res) =>{
     });
 }
 
+Usuarios.lgoin = async (req, res) => {
+    const { boleta, pass } = (req.body.boleta === undefined || req.body.boleta === null)? req.query : req.body;
+    const url = "http://sistemas.upiiz.ipn.mx/isc/nopu/api/login.php?usuario=" + boleta + "&clave="+pass;
+    let usuario = null;
+    let mensaje;
+    let registrado;
+    let estatus;
+    
+    try {
+        const peticion = await axios.get(url);
+        
+
+        if(peticion.data) {
+            try {
+                const consulta = await con.query("SELECT * FROM usuarios WHERE boleta = ?", [boleta]);
+    
+                console.log(boleta);
+                usuario = (consulta.length > 0)? consulta[0] : null;
+                estatus = true;
+                registrado = (consulta.length > 0)? true : false;
+    
+            } catch(error) {
+                console.error(error);
+
+                mensaje = "Error al buscar el usuario, intentelo de nuevo más tarde";
+                estatus = false;
+            }
+        } else {
+            mensaje = "Credenciales incorrectas";
+            registrado = false;
+            estatus = false;
+        }
+        
+    } catch(error) {
+        console.log(error);
+
+        mensaje = "Error al conectar al validar las credenciales";
+        estatus = false;
+    }
+
+    res.json({
+        usuario,
+        registrado,
+        estatus
+    });
+}
+
 Usuarios.createUsuario = async(req, res) =>{
-    const { nombre, boleta, token, tipo, programa_id, remember_token } = req.body;
+    const { nombre, boleta, token, tipo, programa_id } = req.body;
     const time = new Date();
+    let usuario = null;
 
     const data = {
         nombre,
@@ -32,7 +81,6 @@ Usuarios.createUsuario = async(req, res) =>{
         token,
         tipo,
         programa_id,
-        remember_token,
         created_at: time,
         updated_at: time,
     };
@@ -41,9 +89,15 @@ Usuarios.createUsuario = async(req, res) =>{
     let status;
 
     try {
-        await con.query('INSERTED INTO usuario SET ?',[data]);
+        const consulta = await con.query('INSERT INTO usuarios SET ?',[data]);
+        const id = consulta.insertId;
+
+        const creado = await con.query('SELECT * FROM usuarios WHERE id = ?', [id]);
+        usuario = creado[0];
+
         mensaje ="usuario creado satisfactoriamente";
         status = true;
+
     } catch (error) {
         console.error(error);
 
@@ -56,6 +110,7 @@ Usuarios.createUsuario = async(req, res) =>{
     }
 
     res.json({
+        usuario,
         mensaje,
         status
     });

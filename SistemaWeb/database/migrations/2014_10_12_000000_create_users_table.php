@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('nombre', 70);
             $table->string('boleta', 10);
-            $table->string('token', 100);
+            $table->string('token', 100)->nullable();
             $table->integer('tipo');
         });
     }

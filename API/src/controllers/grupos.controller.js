@@ -9,8 +9,8 @@ Grupos.getGrupos = async (req, res) => {
     try {
         grupos = await con.query("SELECT * FROM grupos");
 
-        estatus = (grupos === null) ? false : true;
-        mensaje = (grupos === null) ? "No se han encontrado grupos" : "";
+        estatus = (grupos.length === 0) ? false : true;
+        mensaje = (grupos.length === 0) ? "No se han encontrado grupos" : "";
 
     } catch (error) {
         grupos = null;

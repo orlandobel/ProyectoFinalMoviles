@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgrupamientoController;
+use App\Http\Controllers\UsuariosController;
+use App\Models\Usuario;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,18 +16,22 @@ use App\Http\Controllers\AgrupamientoController;
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
-})->name('home');
-//-agrupamientos--//
-Route::get('/agrupamientos', [AgrupamientoController::class, "index"])->name('agrupamientos');
+//-- Agrupamientos--//
+Route::get('/agrupamientos', [AgrupamientoController::class, "index"])->name('agrupamientos')->middleware('auth');
 
-//Route::get('/grupos/lista', 'GrupoController');
-//-notficaciones ---//
+//-- Notficaciones --//
 Route::get('/notificaciones', function () {
     return view('notifications');
-})->name('notificaciones');
+})->name('notificaciones')->middleware('auth');
 
+//-- Autenticaciones --//
 Route::get('/', function () {
     return view('auth.login');
 })->name('login');
+
+Route::get('/auth', [UsuariosController::class, "login"])->name('auth');
+
+Route::get('/logout', [UsuariosController::class, "logout"])->name('logout');
+
+Route::post('/registro', [UsuariosController::class, "registro"])->name('registro');
+

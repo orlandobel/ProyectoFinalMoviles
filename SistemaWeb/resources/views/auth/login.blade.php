@@ -1,22 +1,22 @@
 @extends('layouts.auth')
 
 @section('title')
-registro
+Login
 @stop
 
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"> <b>NotiPush</b> </a>
+        <b>NotiPush</b>
     </div>
 
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Inicio de sesión</p>
 
-            <form action="#" method="post">
+            <form action="{{route('auth')}}" method="get">
                 <div class="input-group mb-3">
-                    <input type="text" placeholder="Numero de boleta o de empleado" class="form-control">
+                    <input type="text" placeholder="Numero de boleta o de empleado" name="boleta" class="form-control">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -25,7 +25,7 @@ registro
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Contraseña">
+                    <input type="password" class="form-control" name="pass" placeholder="Contraseña saes">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -44,8 +44,8 @@ registro
                     </div-->
                     <!-- /.col -->
                     <div class="col-4">
-                        <!--button type="submit" class="btn btn-primary btn-block">Entrar</button-->
-                        <a href="{{ route('home') }}" class="btn btn-primary">Entrar</a>
+                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        <!--a href="{{ route('auth') }}" class="btn btn-primary">Entrar</a-->
                     </div>
                     <!-- /.col -->
                 </div>
