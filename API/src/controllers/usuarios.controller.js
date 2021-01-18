@@ -33,9 +33,9 @@ Usuarios.lgoin = async (req, res) => {
     
     try {
         const peticion = await axios.get(url);
-        
+        console.log(peticion.data);
 
-        if(peticion.data) {
+        if(peticion.data.estado === 1) {
             try {
                 const consulta = await con.query("SELECT * FROM usuarios WHERE boleta = ?", [boleta]);
     
@@ -65,6 +65,7 @@ Usuarios.lgoin = async (req, res) => {
 
     res.json({
         usuario,
+        mensaje,
         registrado,
         estatus
     });
