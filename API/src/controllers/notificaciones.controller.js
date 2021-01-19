@@ -1,4 +1,5 @@
 const con = require('../connection');
+const gcm  = require('node-gcm');
 
 const Notificacion = {};
 
@@ -81,7 +82,29 @@ Notificacion.sendNotificacion = async (req, res) => {
                 updated_at: fecha
             };
 
-            await con.query("INSERT INTO notificaciones SET ?", [data]);
+            const msj = await con.query("INSERT INTO notificaciones SET ?", [data]);
+            const msjId = msj.insertId;
+
+            const sql = "SELECT usuarios.token FROM grupos "
+                + "LEFT JOIN agrupamientos ON grupos.id = agrupamientos.grupo_id "
+                + "RIGHT JOIN usuarios ON agrupamientos.usuario_id = usuarios.id where grupos.id = ?";
+            const grupo = await con.query(sql, [grupo_id]);
+
+            const tokens = [];
+            grupo.forEach(element => {
+                tokens.push(element.token);
+            });
+
+            const mensajero = new gcm.Sender(process.env.FCM_SERVER_KEY);
+            const notificacion = new gcm.Message();
+            notificacion.addNotification("title", titulo);
+            notificacion.addNotification("body", descripcion);
+            notificacion.addNotification("notificacion_id", msjId);
+
+            mensajero.send(notificacion, {registrationTokens: tokens }, (err, resp) => {
+                if(err) console.error(err);
+                else console.log(resp);
+            });
 
             mensaje = "Notificación enviada";
             estatus = true;
