@@ -1,4 +1,5 @@
 @extends('layouts.app')
+use Illuminate\Support\Facades\Auth;
 
 @section('css')
 @stop
@@ -10,6 +11,8 @@ Agrupamientos
 @section('modals')
 <!-- Modal nuevo agrupamiento -->
 <div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel">
+    {!!Form::open(array('url'=>'/grupo/nuevo', 'id'=>'add_grupo',
+    'method'=>'POST'))!!}
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -21,13 +24,17 @@ Agrupamientos
           <div class="modal-body">
               <form>
                   <div class="form-group">
-                      <input class="form-control form-control-navbar" type="text" placeholder="Nombre"
-                          aria-label="Search">
+                    {!!Form::text('nombre', null,
+                    ['class'=>'form-control form-control-navbar',
+                    'placeholder'=>'Nombre del Grupo',
+                    'id'=>'nombre'])!!}
                   </div>
 
                   <div class="form-group">
-                      <textarea class="form-control form-control-navbar" placeholder="Descripcion"
-                          aria-label="Descripcion" id="message-text"></textarea>
+                    {!!Form::textarea('descripcion', null,
+                    ['class'=>'form-control form-control-navbar',
+                    'placeholder'=>"Descripcion",
+                    'id'=>'descripcion'])!!}
                   </div>
               </form>
           </div>
@@ -35,9 +42,10 @@ Agrupamientos
           <!-- footer -->
           <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
           </div>
       </div>
+      {!!Form::close()!!}
   </div>
 </div>
 
@@ -100,14 +108,18 @@ Agrupamientos
                                 <button type="button" class="btn btn-info">
                                     <i class="fas fa-pen-alt"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger">
+                                {!!Form::open(
+                                                    array('url'=>'/grupo/delete/'.$grupo->id,
+                                                    'method'=>'delete'
+                                                ))!!}
+                                <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-ban"></i>
                                 </button>
-                            
+                                {!!Form::close()!!}
                             </div>
                             </td>
                         </tr>
-                        
+
                       @endforeach
                     </tbody>
                 </table>
@@ -146,7 +158,7 @@ Agrupamientos
                 @foreach($usuarios as $u)
                 <tr>
                   <td> {{$u -> nombre}} </td>
-                    <td> 
+                    <td>
                       @if($u -> tipo == 0)
                         Alumno
                       @elseif ($u -> tipo == 1)
@@ -162,34 +174,6 @@ Agrupamientos
                   </td>
                 </tr>
                 @endforeach
-                <tr>
-                  <td>Grace Hopper</td>
-                  <td>PAAE</td>
-                  <td>
-                    <button type="button" class="btn btn-info">
-                      <i class="far fa-dot-circle"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                
-                  <td>Margaret Hamilton</td>
-                  <td>Alumno</td>
-                  <td>
-                    <button type="button" class="btn btn-info">
-                      <i class="far fa-dot-circle"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Joan Clarke</td>
-                  <td>Docente</td>
-                  <td>
-                    <button type="button" class="btn btn-info">
-                      <i class="far fa-dot-circle"></i>
-                    </button>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
