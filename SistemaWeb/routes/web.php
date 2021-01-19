@@ -18,6 +18,9 @@ use App\Models\Usuario;
 
 //-- Agrupamientos--//
 Route::get('/agrupamientos', [AgrupamientoController::class, "index"])->name('agrupamientos')->middleware('auth');
+Route::post('/grupo/nuevo',[AgrupamientoController::class,"createGrupo"])->name('creando')->middleware('auth');
+Route::delete('/grupo/delete/{id}',[AgrupamientoController::class, "deleteGrupo"])->name('eliminando_grupo')->middleware('auth');
+Route::delete('/usuario/delete/{id}',[AgrupamientoController::class, "deleteUsuario"])->name('eliminando')->middleware('auth');
 
 //-- Notficaciones --//
 Route::get('/notificaciones', function () {
