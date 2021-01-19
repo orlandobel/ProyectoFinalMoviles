@@ -102,17 +102,17 @@ Grupos.updateGrupo = async (req, res) => {
 }
 
 Grupos.deleteGrupo = async (req, res) => {
-    const { grupo_id } = req.body;
+    const { id } = req.body;
 
     let mensaje;
     let estatus;
 
-    if(grupo_id === null || grupo_id === undefined) {
+    if(id === null || id === undefined) {
         mensaje = "No se ha encontrado el grupo a eliminar, falta el ID";
         estatus = false;
     } else {
         try {
-            await con.query("DELETE FROM grupos WHERE id = ?", [grupo_id]);
+            await con.query("DELETE FROM grupos WHERE id = ?", [id]);
 
             mensaje = "Grupo eliminado exitosamente";
             estatus = true;

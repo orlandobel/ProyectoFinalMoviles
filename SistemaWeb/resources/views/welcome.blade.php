@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+use Illuminate\Support\Facades\Auth;
 @section('css')
 @stop
 
