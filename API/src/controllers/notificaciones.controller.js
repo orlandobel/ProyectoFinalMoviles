@@ -4,7 +4,7 @@ const gcm  = require('node-gcm');
 const Notificacion = {};
 
 Notificacion.getNotificaciones = async (req, res) => {
-    const { usuario_id } = req.body;
+    const { usuario_id } = (req.body.usuario_id === null || req.body.usuario_id === undefined)? req.query: req.body;
     let notificaciones = null;
     let mensaje = null;
     let estatus;
@@ -14,14 +14,13 @@ Notificacion.getNotificaciones = async (req, res) => {
         estatus = false;
     } else {
         try {
-            const sql =
-                "SELECT notificaciones.id, notificaciones.titulo, notificaciones.descripcion, notificaciones.created_at, grupos.nombre "
-                + "FROM notificaciones "
-                + "LEFT JOIN grupos ON notificaciones.grupo_id = grupos.id "
+            let sql =
+                "SELECT notificaciones.* FROM notificaciones LEFT JOIN grupos ON notificaciones.grupo_id = grupos.id "
                 + "RIGHT JOIN agrupamientos ON grupos.id = agrupamientos.grupo_id "
-                + "LEFT JOIN usuarios ON agrupamientos.usuario_id = usuarios.id WHERE usuarios.id = ?;";
+                + "LEFT JOIN usuarios ON agrupamientos.usuario_id = usuarios.id WHERE usuarios.id = ?";
 
             notificaciones = await con.query(sql, [usuario_id]);
+
             estatus = true;
         } catch (error) {
             console.log(error);
