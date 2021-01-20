@@ -1,5 +1,5 @@
 @extends('layouts.app')
-use Illuminate\Support\Facades\Auth;
+
 @section('css')
 @stop
 
@@ -18,40 +18,28 @@ use Illuminate\Support\Facades\Auth;
                             aria-hidden="true">&times;</span></button>
 
                 </div>
+                {!! Form::open(array('url'=>route('enviar'), 'method'=>'post')) !!}
                 <div class="modal-body">
-                    <form>
                         <div class="form-group">
-                            <input class="form-control form-control-navbar" type="text" placeholder="Asunto"
-                                aria-label="Search">
+                            {!! Form::text('titulo', null, ['class'=>'form-control form-control-navbar', 'placeholder'=>'Asunto']) !!}
                         </div>
 
                         <div class="form-group">
-                            <textarea class="form-control form-control-navbar" placeholder="Descripcion"
-                                aria-label="Descripcion" id="message-text"></textarea>
+                            {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-navbar', 'placeholder'=>'Descripcion']) !!}
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="true">
-                                Seleccionar grupo
-                            </button>
-                            <div class="dropdown-menu" style="">
-                                <a class="dropdown-item" href="#">3cm4</a>
-                                <a class="dropdown-item" href="#">4cm1</a>
-                                <a class="dropdown-item" href="#">2cm2</a>
-                                <a class="dropdown-item" href="#">Graduado</a>
-                                <div class="dropdown-divider"></div>
-
-                            </div>
+                            {!! Form::select('grupo', $grupos, 1, ['class'=>'custom-select']) !!}
+                            
                         </div>
-                    </form>
-                </div>
-
+                    </div>
+                    
                 <!-- footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>
 	</div>
@@ -73,7 +61,7 @@ use Illuminate\Support\Facades\Auth;
                             <div class="row">
                                 <div class="col-md-4"><label for="recipient-name" class="control-label">Asunto:</label>
                                 </div>
-                                <div class="col-md-4 col-md-offset-4">Reunión</div>
+                                <div class="col-md-4 col-md-offset-4" id="titulo">Reunión</div>
                             </div>
                         </div>
 
@@ -81,7 +69,7 @@ use Illuminate\Support\Facades\Auth;
                             <div class="row">
                                 <div class="col-md-4"><label for="recipiente-desti"
                                         class="control-label">Destinatarios:</label> </div>
-                                <div class="col-md-4 col-md-offset-4">Destinatario</div>
+                                <div class="col-md-4 col-md-offset-4" id="grupo">Destinatario</div>
                             </div>
                         </div>
 
@@ -89,7 +77,7 @@ use Illuminate\Support\Facades\Auth;
                             <div class="row">
                                 <div class="col-md-4"><label for="recipiente-Descrip"
                                         class="control-label">Descripcion:</label> </div>
-                                <div class="col-md-4 col-md-offset-4"> Academia de Sistemas </div>
+                                <div class="col-md-4 col-md-offset-4" id="descripcion"> Academia de Sistemas </div>
                             </div>
                         </div>
 
@@ -97,7 +85,7 @@ use Illuminate\Support\Facades\Auth;
                             <div class="row">
                                 <div class="col-md-4"><label for="recipiente-Fecha" class="control-label">Fecha:</label>
                                 </div>
-                                <div class="col-md-4 col-md-offset-4"> 23 de noviembre de 2020 </div>
+                                <div class="col-md-4 col-md-offset-4" id="enviado"> 23 de noviembre de 2020 </div>
                             </div>
                         </div>
 
@@ -136,6 +124,14 @@ use Illuminate\Support\Facades\Auth;
         <!-- Main content -->
         <section class="content">
 
+            @if($errors->any())
+                @foreach($errors->all() as $err)
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    {{ $err }}
+                </div>
+                @endforeach    
+            @endif
             <!-- Grupos -->
             <div class="card">
                 <div class="card-header">
@@ -155,48 +151,27 @@ use Illuminate\Support\Facades\Auth;
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nombres</th>
-                                    <th>Descripcion</th>
+                                    <th>Titulo</th>
+                                    <th>Grupo</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($notificaciones as $notificacion)
                                 <tr>
-                                    <td>Becas</td>
-                                    <td>Para Becas</td>
+                                    <td>{{ $notificacion->titulo }}</td>
+                                    <td>{{ $notificacion->grupo->nombre }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="#m1" data-toggle="modal">Ver</a>
+                                            <button class="btn btn-success" 
+                                                data-toggle="modal" data-target="#m1" 
+                                                onclick="abrir({{$notificacion}})">
+                                                ver
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Credenciales</td>
-                                    <td>Para nuevo Ingreso</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="#m1" data-toggle="modal">Ver</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>BEIFI</td>
-                                    <td>Para Becas BEIFI</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="#m1" data-toggle="modal">Ver</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Delfin</td>
-                                    <td>Grupo Delfin</td>
-                                    <td>
-                                        <div class="btn-group-vertical">
-                                            <a href="#m1" data-toggle="modal">Ver</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -210,4 +185,22 @@ use Illuminate\Support\Facades\Auth;
 @stop
 
 @section('js')
+<!-- bs-custom-file-input -->
+<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+<script>
+    const titulo = $("#titulo");
+    const grupo = $("#grupo");
+    const descripcion  = $("#descripcion");
+    const enviado = $("#enviado");
+
+    function abrir(notificacion) {
+        console.log(notificacion);
+
+        titulo.text(notificacion.titulo);
+        grupo.text(notificacion.grupo.nombre);
+        descripcion.text(notificacion.descripcion);
+        enviado.text(notificacion.created_at);
+    }
+</script>
 @stop

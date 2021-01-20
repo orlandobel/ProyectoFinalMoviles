@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgrupamientoController;
+use App\Http\Controllers\NotificacionesController;
 use App\Http\Controllers\UsuariosController;
-use App\Models\Usuario;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +23,14 @@ Route::delete('/grupo/delete/{id}',[AgrupamientoController::class, "deleteGrupo"
 Route::delete('/usuario/delete/{id}',[AgrupamientoController::class, "deleteUsuario"])->name('eliminando')->middleware('auth');
 
 //-- Notficaciones --//
-Route::get('/notificaciones', function () {
-    return view('notifications');
-})->name('notificaciones')->middleware('auth');
+Route::get('/notificaciones', [NotificacionesController::class, 'index'])->name('notificaciones')->middleware('auth');
+Route::post('/notificaciones/enviar', [NotificacionesController::class, 'enviar'])->name('enviar')->middleware('auth');
 
 //-- Autenticaciones --//
 Route::get('/', function () {
     return view('auth.login');
 })->name('login');
-
 Route::get('/auth', [UsuariosController::class, "login"])->name('auth');
-
 Route::get('/logout', [UsuariosController::class, "logout"])->name('logout');
-
 Route::post('/registro', [UsuariosController::class, "registro"])->name('registro');
 

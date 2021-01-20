@@ -15,6 +15,11 @@ class Notificacion extends Model
         'titulo',
         'descripcion',
         'fecha',
-        'grupo_id'
+        'grupo_id',
+        'created_at'
     ];
+
+    public function grupo() {
+        return $this->belongsTo(Grupo::class, 'grupo_id', 'id');
+    }
 }
