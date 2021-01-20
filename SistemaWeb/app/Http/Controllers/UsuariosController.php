@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UsuariosController extends Controller
 {
@@ -40,6 +41,7 @@ class UsuariosController extends Controller
 
         }
 
+        return Redirect::back()->withErrors(['err' => $respuesta->mensaje]);
     }
 
     public function registro(Request $request) {
@@ -65,6 +67,8 @@ class UsuariosController extends Controller
 
             return redirect(route('notificaciones'));
         }
+
+        return Redirect::back()->withErrors(['err' => $respuesta->mensaje]);
     }
 
     public function logout() {

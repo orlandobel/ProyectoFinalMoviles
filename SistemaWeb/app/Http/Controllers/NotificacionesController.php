@@ -68,7 +68,7 @@ class NotificacionesController extends Controller
 
         $sendData = [
             'titulo' => $request->titulo,
-            'descripcion' => $request->descrupcion,
+            'descripcion' => $request->descripcion,
             'grupo_id' => $request->grupo
         ];
 

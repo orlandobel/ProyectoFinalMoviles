@@ -10,6 +10,14 @@ Login
         <b>NotiPush</b>
     </div>
 
+    @if($errors->any())
+        @foreach($errors->all() as $err)
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            {{ $err }}
+        </div>
+        @endforeach
+    @endif
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Inicio de sesión</p>
