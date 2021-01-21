@@ -14,4 +14,8 @@ class Agrupamiento extends Model
         'usuario_id',
         'grupo_id'
     ];
+
+    public function usuario() {
+        return $this->belongsTo(Usuario::class, 'usuario_id', 'id');
+    }
 }

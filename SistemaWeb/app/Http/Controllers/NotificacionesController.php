@@ -79,6 +79,6 @@ class NotificacionesController extends Controller
             return redirect(route('notificaciones'));
         } 
 
-        return Redirect::back()->withErrors(['err', $respuesta->mensaje]);
+        return Redirect::back()->withErrors([$respuesta->mensaje]);
     }
 }

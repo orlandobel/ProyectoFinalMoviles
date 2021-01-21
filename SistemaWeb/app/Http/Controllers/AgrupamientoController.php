@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Route;
 use App\Models\Grupo;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\Redirect;
 
 class AgrupamientoController extends Controller
 {
@@ -17,6 +17,7 @@ class AgrupamientoController extends Controller
         $array = ['grupos'=>$grupos,'usuarios'=>$usuarios];
         return view("agrupamientos",$array);
     }
+
     public function getGrupos(){
         $grupos = [];
         $peticion = Http::get('http://localhost:3000/grupos/');
@@ -48,19 +49,59 @@ class AgrupamientoController extends Controller
     }
 
     public function createGrupo(Request $req){
-        $peticion = Http::post('http://localhost:3000/grupos/create',["nombre"=>$req->input("nombre"),"descripcion"=>$req->input("descripcion")]);
-        return redirect("/agrupamientos");
+        $sendData = [
+            'nombre' => $req->nombre,
+            'descripcion' => $req->descripcion
+        ];
+        $peticion = Http::post('http://localhost:3000/grupos/create',$sendData);
+        $respuesta = json_decode($peticion);
+
+        if($respuesta->estatus)
+            return redirect(route('agrupamientos'));
+
+        return Redirect::back()->whitErrors([$respuesta->mensaje]);
     }
 
-    public function deleteGrupo(){
-        $peticion = Http::delete('http://localhost:3000/grupos/delete',["id"=>Route::current()->parameter("id") ]);
+    public function update(Request $request) {
+        $this->validate($request, [
+            'nombre_editar' => 'required',
+            'descripcion_editar' => 'required'
+        ]);
+
+        $sendData = [
+            'grupo_id' => $request->id_editar,
+            'nombre' => $request->nombre_editar,
+            'descripcion' => $request->descripcion_editar
+        ];
+
+        $peticion = Http::put('http://localhost:3000/grupos/update', $sendData);
+        $respuesta = json_decode($peticion);
+
+        if($respuesta->estatus) 
+            return redirect(route('agrupamientos'));
+
+        return Redirect::back()->withErrors([$respuesta->mensaje]);
+    }
+
+    public function deleteGrupo($id){
+
+        $peticion = Http::delete('http://localhost:3000/grupos/delete',["id"=>$id ]);
         $respuesta = json_decode($peticion->getbody()->getContents());
-        return redirect("/agrupamientos");
+
+        if($respuesta->estatus)
+            return redirect(route('agrupamientos'));
+
+        return Redirect::back()->whitErrors([$respuesta->mensaje]);
     }
 
 
-    public function deleteUsuario(){
-        $peticion = Http::delete('http://localhost:3000/usuarios/delete',[Route::current()->getParameter("id")]);
+    public function deleteUsuario($id){
+        $peticion = Http::delete('http://localhost:3000/usuarios/delete',[$id]);
         $respuesta = json_decode($peticion->getbody()->getContents());
+        
+        if($respuesta->estatus)
+            return redirect(route('agrupamientos'));
+
+        return Redirect::back()->whitErrors([$respuesta->mensaje]);
     }
 }

@@ -1,5 +1,12 @@
+<?php
+  foreach($grupos as $g) {
+    foreach($g->miembros as $miembro) {
+      $miembro->usuario;
+    }
+  }
+?>
+
 @extends('layouts.app')
-use Illuminate\Support\Facades\Auth;
 
 @section('css')
 @stop
@@ -9,14 +16,14 @@ Agrupamientos
 @stop
 
 @section('modals')
-<!-- Modal nuevo agrupamiento -->
+<!-- Modal nuevo grupo -->
 <div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel">
-    {!!Form::open(array('url'=>'/grupo/nuevo', 'id'=>'add_grupo',
+    {!!Form::open(array('url'=>route('creando'), 'id'=>'add_grupo',
     'method'=>'POST'))!!}
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title" id="nuevoModalLabel">Nuevo agrupamiento</h4>
+              <h4 class="modal-title" id="nuevoModalLabel">Nuevo grupo</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
 
@@ -48,8 +55,45 @@ Agrupamientos
       {!!Form::close()!!}
   </div>
 </div>
+<!-- Fin modal nuevo grupo -->
 
-<!-- Modal nuevo agrupamiento -->
+<!-- Modal editar grupo -->
+<div class="modal fade" id="editarGrupo" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel">
+  <div class="modal-dialog" role="document">
+    {!!Form::open(array('url'=>route('actualizar'), 'id'=>'add_grupo', 'method'=>'PUT'))!!}
+      <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="nuevoModalLabel">Editar grupo</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {!! Form::hidden("id_editar", null, ['id'=>'id_editar']) !!}
+          <div class="modal-body">  
+            <div class="form-group">
+              {!!Form::text('nombre_editar', null, ['class'=>'form-control form-control-navbar',
+                'placeholder'=>'Nombre del Grupo',
+                'id'=>'nombre_editar'])!!}
+            </div>
+
+            <div class="form-group">
+              {!!Form::textarea('descripcion_editar', null, ['class'=>'form-control form-control-navbar',
+                'placeholder'=>"Descripcion",
+                'id'=>'descripcion_editar'])!!}
+            </div>
+        
+          </div>
+
+          <!-- footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+      </div>
+    {!!Form::close()!!}
+  </div>
+</div>
+<!-- Fin modal editar grupo -->
 @stop
 
 @section('content')
@@ -75,6 +119,14 @@ Agrupamientos
     <!-- Main content -->
     <section class="content">
 
+      @if($errors->any())
+                @foreach($errors->all() as $err)
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    {{ $err }}
+                </div>
+                @endforeach    
+            @endif
       <!-- Grupos -->
       <div class="card">
         <div class="card-header">
@@ -101,17 +153,17 @@ Agrupamientos
                     <tbody>
                       @foreach($grupos as $grupo)
                       <tr>
-                            <td>{{$grupo ->nombre}}</td>
-                            <td>{{$grupo ->descripcion}}</td>
+                            <td>{{$grupo->nombre}}</td>
+                            <td>{{$grupo->descripcion}}</td>
                             <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info">
+                                <button type="button" class="btn btn-info" 
+                                  data-target="#editarGrupo" data-toggle="modal" onclick="mostrarEditar({{$grupo}});">
                                     <i class="fas fa-pen-alt"></i>
                                 </button>
-                                {!!Form::open(
-                                                    array('url'=>'/grupo/delete/'.$grupo->id,
-                                                    'method'=>'delete'
-                                                ))!!}
+
+                                {!!Form::open(array('url'=>'/grupo/delete/'.$grupo->id,
+                                                    'method'=>'delete'))!!}
                                 <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-ban"></i>
                                 </button>
@@ -125,16 +177,18 @@ Agrupamientos
                 </table>
             </div>
         </div>
-
       </div>
+
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Asignar a Grupo</h3>
         </div>
+
         <div class="card-body">
           <div class="card-tools">
           <div class="row">
             <div class="col-md-10"></div>
+
             <div class="col-md-2">
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -179,20 +233,29 @@ Agrupamientos
           </div>
           <div class="row">
             <div class="col-md-3">
-              <select class="form-control">
-                <option>Seleccione un grupo</option>
-                <option>Becas</option>
-                <option>Credenciales</option>
-                <option>BEIFI</option>
-                <option>Delfin</option>
-              </select>
+              <button type="button" class="btn btn-default dropdown-toggle" 
+                data-toggle="dropdown" id="selector">
+                Seleccione un grupo
+              </button>
+
+              <ul class="dropdown-menu">
+                @foreach($grupos as $grupo)
+                <li class="dropdown-item">
+                  <a href="javascript:cambiarGrupo({{$grupo->miembros}}, '{{$grupo->nombre}}');">{{$grupo->nombre}}</a></li>
+                @endforeach
+              </ul>
             </div>
+
             <div class="col-md-7"></div>
+
             <div class="col-md-2">
-              <button type="button" class="btn btn-block btn-success btn-lg">Asignar</button>
+              <button type="button" class="btn btn-block btn-success">Asignar</button>
             </div>
+          </div>
+          <br>
+          <div class="row">
             <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered" >
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -200,25 +263,8 @@ Agrupamientos
                   <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Ada Lovelace</td>
-                  <td>Alumno</td>
-                  <td>
-                    <button type="button" class="btn btn-danger">
-                      <i class="far fa-dot-circle"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Grace Hopper</td>
-                  <td>Docente</td>
-                  <td>
-                    <button type="button" class="btn btn-danger">
-                      <i class="far fa-dot-circle"></i>
-                    </button>
-                  </td>
-                </tr>
+              <tbody id="miembrosGrupo">
+                
               </tbody>
             </table>
           </div>
@@ -236,4 +282,5 @@ Agrupamientos
 @stop
 
 @section('js')
+<script src="{{ asset('Custom/js/grupos.js') }}"></script>
 @stop

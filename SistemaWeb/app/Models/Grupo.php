@@ -14,4 +14,8 @@ class Grupo extends Model
         'nombre',
         'descripcion'
     ];
+
+    public function miembros() {
+        return $this->hasMany(Agrupamiento::class, 'grupo_id', 'id');
+    }
 }

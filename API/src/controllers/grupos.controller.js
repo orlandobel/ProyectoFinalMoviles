@@ -65,8 +65,7 @@ Grupos.createGrupo = async (req, res) => {
 }
 
 Grupos.updateGrupo = async (req, res) => {
-    const { grupo_id } = req.body;
-    const { nombre, descripcion } = req.body;
+    const { grupo_id, nombre, descripcion } = req.body;
 
     let mensaje;
     let estatus;

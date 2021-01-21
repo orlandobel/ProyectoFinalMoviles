@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgrupamientoController;
 use App\Http\Controllers\NotificacionesController;
 use App\Http\Controllers\UsuariosController;
+use App\Models\Agrupamiento;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\UsuariosController;
 //-- Agrupamientos--//
 Route::get('/agrupamientos', [AgrupamientoController::class, "index"])->name('agrupamientos')->middleware('auth');
 Route::post('/grupo/nuevo',[AgrupamientoController::class,"createGrupo"])->name('creando')->middleware('auth');
+Route::put('/grupo/agtualizar', [AgrupamientoController::class, "update"])->name('actualizar')->middleware('auth');
 Route::delete('/grupo/delete/{id}',[AgrupamientoController::class, "deleteGrupo"])->name('eliminando_grupo')->middleware('auth');
 Route::delete('/usuario/delete/{id}',[AgrupamientoController::class, "deleteUsuario"])->name('eliminando')->middleware('auth');
 
