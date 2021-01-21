@@ -1,0 +1,15 @@
+.radios{
+    display: none;
+}
+
+  .radios + label  {
+    color: black;
+    font-style: normal;
+    font-weight:400;
+  }
+  .radios:checked + label {
+    color: rgb(0, 89, 255);
+    font-style: normal;
+    font-weight:400;
+
+  }

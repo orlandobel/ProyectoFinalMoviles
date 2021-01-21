@@ -23,7 +23,8 @@ Route::post('/grupo/nuevo',[AgrupamientoController::class,"createGrupo"])->name(
 Route::put('/grupo/agtualizar', [AgrupamientoController::class, "update"])->name('actualizar')->middleware('auth');
 Route::delete('/grupo/delete/{id}',[AgrupamientoController::class, "deleteGrupo"])->name('eliminando_grupo')->middleware('auth');
 Route::delete('/usuario/delete/{id}',[AgrupamientoController::class, "deleteUsuario"])->name('eliminando')->middleware('auth');
-
+Route::post('/grupo/addusuario', [AgrupamientoController::class, "addUsuario"])->name('agregandousuario')->middleware('auth');
+Route::get('/grupo/removeusuario/{id}', [AgrupamientoController::class, "removeUsuario"])->middleware('auth');
 //-- Notficaciones --//
 Route::get('/notificaciones', [NotificacionesController::class, 'index'])->name('notificaciones')->middleware('auth');
 Route::post('/notificaciones/enviar', [NotificacionesController::class, 'enviar'])->name('enviar')->middleware('auth');

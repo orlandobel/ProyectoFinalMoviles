@@ -9,6 +9,7 @@
 @extends('layouts.app')
 
 @section('css')
+<link rel="stylesheet" href="{{asset('Custom/css/radios.css')}}">
 @stop
 
 @section('title')
@@ -69,7 +70,7 @@ Agrupamientos
             </button>
           </div>
           {!! Form::hidden("id_editar", null, ['id'=>'id_editar']) !!}
-          <div class="modal-body">  
+          <div class="modal-body">
             <div class="form-group">
               {!!Form::text('nombre_editar', null, ['class'=>'form-control form-control-navbar',
                 'placeholder'=>'Nombre del Grupo',
@@ -81,7 +82,7 @@ Agrupamientos
                 'placeholder'=>"Descripcion",
                 'id'=>'descripcion_editar'])!!}
             </div>
-        
+
           </div>
 
           <!-- footer -->
@@ -125,7 +126,7 @@ Agrupamientos
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                     {{ $err }}
                 </div>
-                @endforeach    
+                @endforeach
             @endif
       <!-- Grupos -->
       <div class="card">
@@ -140,6 +141,7 @@ Agrupamientos
                 </div>
             </div>
         </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -157,7 +159,7 @@ Agrupamientos
                             <td>{{$grupo->descripcion}}</td>
                             <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info" 
+                                <button type="button" class="btn btn-info"
                                   data-target="#editarGrupo" data-toggle="modal" onclick="mostrarEditar({{$grupo}});">
                                     <i class="fas fa-pen-alt"></i>
                                 </button>
@@ -200,7 +202,7 @@ Agrupamientos
           </div>
 
           <div class="table-responsive">
-            <table class="table table-bordered">
+            <table id="example2" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Nombres</th>
@@ -209,9 +211,11 @@ Agrupamientos
                 </tr>
               </thead>
               <tbody>
+                  {!! Form::open(array("url"=>route("agregandousuario"),"metod"=>"POST")) !!}
                 @foreach($usuarios as $u)
                 <tr>
-                  <td> {{$u -> nombre}} </td>
+                  <td> {!! Form::radio("usuario", $u-> id, false, ['id'=>$u-> id, 'class'=>'radios']) !!}
+                    <label for="{{$u-> id}}">{{$u -> nombre}}</label> </td>
                     <td>
                       @if($u -> tipo == 0)
                         Alumno
@@ -222,9 +226,7 @@ Agrupamientos
                       @endif
                     </td>
                   <td>
-                    <button type="button" class="btn btn-info">
-                      <i class="far fa-dot-circle"></i>
-                    </button>
+
                   </td>
                 </tr>
                 @endforeach
@@ -233,7 +235,7 @@ Agrupamientos
           </div>
           <div class="row">
             <div class="col-md-3">
-              <button type="button" class="btn btn-default dropdown-toggle" 
+              <button type="button" class="btn btn-default dropdown-toggle"
                 data-toggle="dropdown" id="selector">
                 Seleccione un grupo
               </button>
@@ -241,7 +243,7 @@ Agrupamientos
               <ul class="dropdown-menu">
                 @foreach($grupos as $grupo)
                 <li class="dropdown-item">
-                  <a href="javascript:cambiarGrupo({{$grupo->miembros}}, '{{$grupo->nombre}}');">{{$grupo->nombre}}</a></li>
+                  <a href="javascript:cambiarGrupo({{$grupo}});">{{$grupo->nombre}}</a></li>
                 @endforeach
               </ul>
             </div>
@@ -249,7 +251,9 @@ Agrupamientos
             <div class="col-md-7"></div>
 
             <div class="col-md-2">
-              <button type="button" class="btn btn-block btn-success">Asignar</button>
+                {!! Form::hidden("grupo_id", null, ['id'=>"grupo_id"]) !!}
+              <button type="submit" class="btn btn-block btn-success">Asignar</button>
+              {!! Form::close() !!}
             </div>
           </div>
           <br>
@@ -264,7 +268,7 @@ Agrupamientos
                 </tr>
               </thead>
               <tbody id="miembrosGrupo">
-                
+
               </tbody>
             </table>
           </div>

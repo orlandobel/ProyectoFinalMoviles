@@ -174,7 +174,7 @@ Grupos.joinGrupo = async(req, res) => {
 
 Grupos.leaveGrupo = async(req, res) => {
     const { id } = req.body;
-
+    console.log(id);
     let mensaje;
     let estatus;
 

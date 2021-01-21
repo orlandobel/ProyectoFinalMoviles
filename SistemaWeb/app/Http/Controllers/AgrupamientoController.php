@@ -77,7 +77,7 @@ class AgrupamientoController extends Controller
         $peticion = Http::put('http://localhost:3000/grupos/update', $sendData);
         $respuesta = json_decode($peticion);
 
-        if($respuesta->estatus) 
+        if($respuesta->estatus)
             return redirect(route('agrupamientos'));
 
         return Redirect::back()->withErrors([$respuesta->mensaje]);
@@ -98,10 +98,36 @@ class AgrupamientoController extends Controller
     public function deleteUsuario($id){
         $peticion = Http::delete('http://localhost:3000/usuarios/delete',[$id]);
         $respuesta = json_decode($peticion->getbody()->getContents());
-        
+
         if($respuesta->estatus)
             return redirect(route('agrupamientos'));
 
         return Redirect::back()->whitErrors([$respuesta->mensaje]);
+    }
+    public function removeUsuario($id){
+        $peticion = Http::delete('http://localhost:3000/grupos/agrupacion',['id'=>$id]);
+        $respuesta = json_decode($peticion->getbody()->getContents());
+        if($respuesta->estatus)
+            return redirect(route('agrupamientos'));
+        //return Redirect::back()->whitErrors();
+        return redirect()->back()->withErrors([$respuesta->mensaje])->withInput();
+    }
+    public function addUsuario(Request $req){
+        $this->validate($req,[
+            "grupo_id"=>'required',
+            "usuario"=>'required',
+        ]);
+
+        $sendData =[
+            "grupo_id"=>$req->grupo_id,
+            "usuario_id"=>$req->usuario
+        ];
+
+        $peticion = Http::post('http://localhost:3000/grupos/agrupacion',$sendData);
+        $respuesta = json_decode($peticion->getbody()->getContents());
+        if($respuesta->estatus)
+            return redirect(route('agrupamientos'));
+        //return Redirect::back()->whitErrors();
+        return redirect()->back()->withErrors([$respuesta->mensaje])->withInput();
     }
 }
