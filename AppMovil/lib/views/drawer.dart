@@ -1,9 +1,6 @@
 import 'package:NotiPush/controllers/auth_controller.dart';
-import 'package:NotiPush/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'notificaciones/notificaciones.dart';
 
 class DrawerMenu extends StatelessWidget {
   /*final String title;
@@ -66,12 +63,7 @@ class DrawerMenu extends StatelessWidget {
                 Text('Notificaciones'),
               ],
             ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => Notificaciones()));
-            },
+            onTap: () => null,
           ),
           ListTile(
             title: Row(

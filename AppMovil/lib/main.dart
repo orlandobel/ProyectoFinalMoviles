@@ -1,7 +1,6 @@
 import 'package:NotiPush/controllers/auth_controller.dart';
 import 'package:NotiPush/models/usuario.dart';
 import 'package:NotiPush/views/auth/login.dart';
-import 'package:NotiPush/views/drawer.dart';
 import 'package:NotiPush/views/notificaciones/notificaciones.dart';
 import 'package:flutter/material.dart';
 

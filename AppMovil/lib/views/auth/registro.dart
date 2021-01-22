@@ -1,6 +1,8 @@
 import 'package:NotiPush/controllers/auth_controller.dart';
 import 'package:NotiPush/models/usuario.dart';
+import 'package:NotiPush/views/notificaciones/notificaciones.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'select.dart';
 
 class Registro extends StatelessWidget {
@@ -55,15 +57,36 @@ class Registro extends StatelessWidget {
               color: Colors.green,
               onPressed: () {
                 Map sendData = {
+                  "boleta": boleta,
                   "nombre": _nombreController.value.text,
                   "tipo": tipoSelect.dropdownValue,
                   "programa_id": programaSelect.dropdownValue
                 };
 
-                AuthController.register(sendData).then((response) {
-                  if (response['estatus']) {
+                AuthController.register(sendData).then((response) async {
+                  if (response['status']) {
                     final usuario = Usuario.fromJson(response['usuario']);
-                  } else {}
+
+                    await AuthController.setPreferences(usuario);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Notificaciones(usuario: usuario),
+                      ),
+                    );
+                  } else {
+                    String mensaje = response['mensaje'] ??
+                        'Ha ocurrido un error al conectar con el servidor';
+
+                    Fluttertoast.showToast(
+                      msg: mensaje,
+                      gravity: ToastGravity.CENTER,
+                      toastLength: Toast.LENGTH_LONG,
+                      timeInSecForIosWeb: 2,
+                      fontSize: 16,
+                    );
+                  }
                 });
               },
             ),

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "257498852001",
+    "project_id": "notipush-4c424",
+    "storage_bucket": "notipush-4c424.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257498852001:android:d96a86bda3398d2c405ee0",
+        "android_client_info": {
+          "package_name": "com.notipush.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257498852001-rbo3oi8k9a38i7dmgfh869hgc9p38sg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.notipush.android",
+            "certificate_hash": "ba67be2e46e677ab16e579b39298162bd06b62f6"
+          }
+        },
+        {
+          "client_id": "257498852001-h23kcfc0ajpv8gkh9h9rcs29dop85quv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZM2R-MiuuH9HWKhC9zTq9fMwq7YnezdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257498852001-h23kcfc0ajpv8gkh9h9rcs29dop85quv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

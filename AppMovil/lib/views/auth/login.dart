@@ -4,7 +4,6 @@ import 'package:NotiPush/views/auth/registro.dart';
 import 'package:NotiPush/views/notificaciones/notificaciones.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../drawer.dart';
 
 class LoginPage extends StatelessWidget {
   final _boletaController = TextEditingController();
