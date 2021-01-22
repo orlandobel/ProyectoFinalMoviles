@@ -3,12 +3,16 @@ import 'package:NotiPush/models/usuario.dart';
 import 'package:NotiPush/views/auth/login.dart';
 import 'package:NotiPush/views/notificaciones/notificaciones.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool loged = await AuthController.isLoged();
   Usuario usuario = (loged) ? await AuthController.getLogedUsuario() : null;
-
+  initializeDateFormatting();
+  Intl.defaultLocale="es_MX";
   runApp(MyApp(loged: loged, usuario: usuario));
 }
 

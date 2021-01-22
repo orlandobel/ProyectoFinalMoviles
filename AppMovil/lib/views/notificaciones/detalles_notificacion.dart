@@ -1,5 +1,6 @@
 import 'package:NotiPush/models/notificacion.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Detalles extends StatelessWidget {
   final Notificacion notificacion;
@@ -42,7 +43,7 @@ class Detalles extends StatelessWidget {
                   height: 25,
                 ),
                 Text(
-                  'Envíado: ${notificacion.enviado}',
+                  'Envíado: ${DateFormat.yMd().format(DateTime.parse(notificacion.enviado))}',
                   style: TextStyle(color: Colors.grey[500], fontSize: 12),
                   textAlign: TextAlign.left,
                 ),

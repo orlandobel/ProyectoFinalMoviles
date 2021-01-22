@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class AuthController {
-  static final String _baseUri = 'http://192.168.1.110:3000';
+  static final String _baseUri = 'http://192.168.1.103:3000';
 
   static Future<Map<dynamic, dynamic>> login(String boleta, String pass) async {
     try {
