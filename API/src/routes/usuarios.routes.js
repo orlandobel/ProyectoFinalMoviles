@@ -11,6 +11,8 @@ router.post('/create', controller.createUsuario);
 
 router.put('/update', controller.updateUsuario);
 
+router.put('/token', controller.setToken);
+
 router.delete('/delete', controller.deleteUsuario);
 
 

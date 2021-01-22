@@ -37,30 +37,6 @@ Notificacion.getNotificaciones = async (req, res) => {
     });
 }
 
-Notificacion.getNotificacion = async (req, res) => {
-    const { id } = req.body;
-    let notificacion = null;
-    let mensaje = null;
-    let estatus;
-
-    try {
-        notificacion = await con.query("SELECT * FROM notificaciones WHERE id = ?", [id]);
-
-        estatus = true;
-    } catch (error) {
-        console.log(error);
-
-        mensaje = "ha ocurrido un error al obtener la notificación, intentelo denuevo más tarde";
-        estatus = false;
-    }
-
-    res.json({
-        notificacion,
-        mensaje,
-        estatus
-    });
-}
-
 Notificacion.sendNotificacion = async (req, res) => {
     const { titulo, descripcion, grupo_id } = req.body;
     const fecha = new Date();
@@ -98,7 +74,7 @@ Notificacion.sendNotificacion = async (req, res) => {
             const notificacion = new gcm.Message();
             notificacion.addNotification("title", titulo);
             notificacion.addNotification("body", descripcion);
-            notificacion.addNotification("notificacion_id", msjId);
+            notificacion.addData('id', msjId);
 
             mensajero.send(notificacion, {registrationTokens: tokens }, (err, resp) => {
                 if(err) console.error(err);

@@ -157,6 +157,31 @@ Usuarios.updateUsuario = async (req, res) =>{
     });
 }
 
+Usuarios.setToken = async (req, res) => {
+    const { usuario_id, token } = req.body;
+    let mensaje;
+    let estatus;
+
+    console.log(req.body);
+
+    try {
+        await con.query('UPDATE usuarios SET token = ? WHERE id = ?', [token, usuario_id]);
+
+        mensaje = "token actualizado";
+        estatus = true;
+    } catch(error) {
+        console.log(error);
+
+        mensaje = "Error al actualizar el token";
+        estatus = false;
+    }
+
+    res.json({
+        mensaje,
+        estatus
+    });
+}
+
 Usuarios.deleteUsuario = async (req,res) =>{
     const { boleta } = req.body;
 
