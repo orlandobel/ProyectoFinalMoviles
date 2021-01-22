@@ -19,7 +19,7 @@ class CreateAgrupamientoTable extends Migration
             $table->unsignedBigInteger('grupo_id');
             $table->timestamps();
 
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
             $table->foreign('grupo_id')->references('id')->on('grupos');
         });
     }
