@@ -1,6 +1,7 @@
 import 'package:NotiPush/controllers/auth_controller.dart';
 import 'package:NotiPush/models/usuario.dart';
 import 'package:NotiPush/views/auth/registro.dart';
+import 'package:NotiPush/views/notificaciones/notificaciones.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../drawer.dart';
@@ -51,8 +52,6 @@ class LoginPage extends StatelessWidget {
                   String pass = _passController.value.text;
 
                   AuthController.login(boleta, pass).then((respuesta) {
-                    print(respuesta);
-
                     if (respuesta['estatus']) {
                       if (respuesta['registrado']) {
                         final usuario = Usuario.fromJson(respuesta['usuario']);
@@ -62,7 +61,7 @@ class LoginPage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  DrawerMenu(usuario: usuario),
+                                  Notificaciones(usuario: usuario),
                             ),
                           );
                         });
@@ -89,12 +88,6 @@ class LoginPage extends StatelessWidget {
                       );
                     }
                   });
-                  /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DrawerMenu(title: ''),
-                    ),
-                  );*/
                 },
               ))
         ]),

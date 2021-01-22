@@ -1,6 +1,14 @@
+import 'package:NotiPush/models/notificacion.dart';
 import 'package:flutter/material.dart';
 
 class Detalles extends StatelessWidget {
+  final Notificacion notificacion;
+
+  Detalles({
+    @required this.notificacion,
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +21,7 @@ class Detalles extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25),
             child: Text(
-              "Notificación",
+              notificacion.titulo,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -22,11 +30,23 @@ class Detalles extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.yellow[200],
             ),
-            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 8),
+            padding: EdgeInsets.only(top: 50, bottom: 15, left: 8, right: 8),
             margin: EdgeInsets.symmetric(vertical: 30, horizontal: 40),
-            child: Text(
-              "Mensaje de prueba para la vista de detalles de las notificaciones",
-              style: TextStyle(fontSize: 18),
+            child: Column(
+              children: [
+                Text(
+                  notificacion.descripcion,
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Text(
+                  'Envíado: ${notificacion.enviado}',
+                  style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                  textAlign: TextAlign.left,
+                ),
+              ],
             ),
           ),
           Expanded(
