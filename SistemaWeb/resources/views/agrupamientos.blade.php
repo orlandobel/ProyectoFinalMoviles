@@ -144,7 +144,7 @@ Agrupamientos
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table id="grupos" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Nombres</th>
@@ -194,9 +194,6 @@ Agrupamientos
             <div class="col-md-2">
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                  </div>
               </div>
             </div>
           </div>
@@ -259,7 +256,7 @@ Agrupamientos
           <br>
           <div class="row">
             <div class="table-responsive">
-            <table class="table table-bordered" >
+            <table id="grupomiembros" class="table table-bordered" >
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -273,9 +270,6 @@ Agrupamientos
             </table>
           </div>
         <!-- /.card-body -->
-        <div class="card-footer">
-              <button type="button" class="btn btn-block btn-secondary">Secondary</button>
-        </div>
         <!-- /.card-footer-->
         </div>
       <!-- /.card -->
@@ -286,5 +280,11 @@ Agrupamientos
 @stop
 
 @section('js')
+<script src="{{asset('Templates/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script>$("#example2").DataTable();</script>
+<script>$("#grupos").DataTable();</script>
 <script src="{{ asset('Custom/js/grupos.js') }}"></script>
 @stop
