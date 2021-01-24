@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NotificacionesController {
-  static final String _baseUri = 'http://192.168.1.103:3000';
+  static final String _baseUri = 'http://192.168.1.110:3000';
 
   static Future<dynamic> getNotificaciones(num usuarioId) async {
     List<Notificacion> notificaciones = new List();

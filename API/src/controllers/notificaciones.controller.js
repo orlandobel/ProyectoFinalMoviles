@@ -71,10 +71,12 @@ Notificacion.sendNotificacion = async (req, res) => {
             });
 
             const mensajero = new gcm.Sender(process.env.FCM_SERVER_KEY);
-            const notificacion = new gcm.Message();
+            const notificacion = new gcm.Message({priority: "high"});
             notificacion.addNotification("title", titulo);
             notificacion.addNotification("body", descripcion);
+            notificacion.addNotification("channel_id", "NOTIFICACIONES");
             notificacion.addData('id', msjId);
+            
 
             mensajero.send(notificacion, {registrationTokens: tokens }, (err, resp) => {
                 if(err) console.error(err);

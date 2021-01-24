@@ -8,6 +8,7 @@ import 'package:NotiPush/views/drawer.dart';
 import 'package:NotiPush/views/notificaciones/elemento_lista.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Notificaciones extends StatefulWidget {
@@ -23,9 +24,17 @@ class Notificaciones extends StatefulWidget {
 }
 
 class _NotificacionesState extends State<Notificaciones> {
-  List<Notificacion> _notificaciones = List();
   FirebaseMessaging _fcm = FirebaseMessaging();
+  List<Notificacion> _notificaciones = List();
   String _token;
+
+  static const MethodChannel _channel =
+      MethodChannel('notipush.com/notification_channel');
+  Map<String, String> _channelMap = {
+    'id': 'NOTIFICACIONES',
+    'name': 'notificaciones',
+    'description': 'notificaciones de notipush',
+  };
 
   @override
   void initState() {
@@ -35,7 +44,18 @@ class _NotificacionesState extends State<Notificaciones> {
     });
   }
 
+  Future _createChannel() async {
+    try {
+      await _channel.invokeMethod('createNotificationChannel', _channelMap);
+
+      setState(() {});
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
   Future _configureFCM() async {
+    await _createChannel();
     if (Platform.isIOS) {
       _fcm.requestNotificationPermissions(IosNotificationSettings());
     }
