@@ -197,7 +197,7 @@ Agrupamientos
               </div>
             </div>
           </div>
-
+          {!! Form::open(array("url"=>route("agregandousuario"),"metod"=>"POST")) !!}
           <div class="table-responsive">
             <table id="example2" class="table table-bordered table-striped">
               <thead>
@@ -208,10 +208,10 @@ Agrupamientos
                 </tr>
               </thead>
               <tbody>
-                  {!! Form::open(array("url"=>route("agregandousuario"),"metod"=>"POST")) !!}
                 @foreach($usuarios as $u)
                 <tr>
-                  <td> {!! Form::radio("usuario", $u-> id, false, ['id'=>$u-> id, 'class'=>'radios']) !!}
+                  <td> 
+                    {!! Form::radio("usuario", $u-> id, false, ['id'=>$u-> id, 'class'=>'radios']) !!}
                     <label for="{{$u-> id}}">{{$u -> nombre}}</label> </td>
                     <td>
                       @if($u -> tipo == 0)
@@ -248,11 +248,11 @@ Agrupamientos
             <div class="col-md-7"></div>
 
             <div class="col-md-2">
-                {!! Form::hidden("grupo_id", null, ['id'=>"grupo_id"]) !!}
+              {!! Form::hidden("grupo_id", null, ['id'=>"grupo_id"]) !!}
               <button type="submit" class="btn btn-block btn-success">Asignar</button>
-              {!! Form::close() !!}
             </div>
           </div>
+          {!! Form::close() !!}
           <br>
           <div class="row">
             <div class="table-responsive">
