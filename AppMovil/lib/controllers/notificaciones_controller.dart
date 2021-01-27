@@ -16,9 +16,11 @@ class NotificacionesController {
       List datosNotificaciones = response['notificaciones'];
 
       datosNotificaciones.forEach((element) {
-        Notificacion notificacion = Notificacion.fromJson(element);
+        if (element['titulo'] != null) {
+          Notificacion notificacion = Notificacion.fromJson(element);
 
-        notificaciones.add(notificacion);
+          notificaciones.add(notificacion);
+        }
       });
     }
 
