@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Notificacion;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class NotificacionesController extends Controller
@@ -36,6 +37,9 @@ class NotificacionesController extends Controller
         if ($respuesta->estatus) {
             foreach ($respuesta->notificaciones as $n) {
                 $datos = Json_decode(json_encode($n), true);
+
+                $fecha = Carbon::parse($datos['created_at']);
+                $datos['fecha'] = $fecha->format('d/m/Y');
 
                 $notificacion = new Notificacion($datos);
                 $notificaciones[] = $notificacion;

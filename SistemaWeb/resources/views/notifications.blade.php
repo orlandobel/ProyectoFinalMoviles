@@ -208,7 +208,7 @@
         titulo.text(notificacion.titulo);
         grupo.text(notificacion.grupo.nombre);
         descripcion.text(notificacion.descripcion);
-        enviado.text(notificacion.created_at);
+        enviado.text(notificacion.fecha);
     }
 </script>
 @stop
