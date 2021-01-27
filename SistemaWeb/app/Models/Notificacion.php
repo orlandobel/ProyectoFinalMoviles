@@ -20,6 +20,6 @@ class Notificacion extends Model
     ];
 
     public function grupo() {
-        return $this->belongsTo(Grupo::class, 'grupo_id', 'id');
+        return $this->belongsTo(Grupo::class, 'grupo_id');
     }
 }

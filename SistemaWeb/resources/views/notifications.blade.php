@@ -148,7 +148,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table id="example2" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Titulo</th>
@@ -158,9 +158,12 @@
                             </thead>
                             <tbody>
                                 @foreach($notificaciones as $notificacion)
+                                @if( isset($notificacion->titulo))
                                 <tr>
                                     <td>{{ $notificacion->titulo }}</td>
-                                    <td>{{ $notificacion->grupo->nombre }}</td>
+                                    <td>
+                                        {{ $notificacion->grupo->nombre }}
+                                        </td>
                                     <td>
                                         <div class="btn-group">
                                             <button class="btn btn-success" 
@@ -171,6 +174,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -186,8 +190,12 @@
 
 @section('js')
 <!-- bs-custom-file-input -->
-<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-
+<script src="{{asset('Templates/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('Templates/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script>$("#example2").DataTable();</script>
 <script>
     const titulo = $("#titulo");
     const grupo = $("#grupo");
